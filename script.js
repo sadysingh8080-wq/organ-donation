@@ -1,5 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Image Preloading & Global Loader ---
+    const allImages = document.querySelectorAll('.image-wrapper img');
+    const globalLoader = document.getElementById('global-loader');
+    const loaderText = document.getElementById('loader-text');
+    let loadedCount = 0;
+    const totalImages = allImages.length;
+
+    const updateProgress = () => {
+        loadedCount++;
+        const percentage = Math.floor((loadedCount / totalImages) * 100);
+        if(loaderText) loaderText.textContent = `${percentage}%`;
+        if(loadedCount >= totalImages && globalLoader) {
+            setTimeout(() => {
+                globalLoader.classList.add('hidden');
+            }, 500); // Wait half a second at 100% before hiding
+        }
+    };
+
+    if (totalImages === 0 && globalLoader) {
+        globalLoader.classList.add('hidden');
+    } else {
+        allImages.forEach(img => {
+            if (img.complete) {
+                img.classList.add('loaded');
+                updateProgress();
+            } else {
+                img.addEventListener('load', () => {
+                    img.classList.add('loaded');
+                    updateProgress();
+                });
+                img.addEventListener('error', () => {
+                    img.classList.add('loaded'); // prevent getting stuck
+                    updateProgress();
+                });
+            }
+        });
+    }
+
+
     // --- Filtering Logic ---
     const filterLinks = document.querySelectorAll('.nav-links a');
     const galleryItems = document.querySelectorAll('.gallery-item');
