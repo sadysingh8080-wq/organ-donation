@@ -11,13 +11,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Global Loading Overlay -->
-    <div id="global-loader" class="global-loader">
-        <div class="loader-content">
-            <div class="pulse-heart large">❤️</div>
-            <div class="loader-progress">Loading: <span id="loader-text">0%</span></div>
-        </div>
-    </div>
+
 
     <!-- Layout Container -->
     <div class="app-layout">
@@ -26,7 +20,11 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h1 class="logo">Gift of Life<br>Gallery</h1>
-                <div class="pulse-heart sidebar-heart">❤️</div>
+                <div class="ecg-loader sidebar-heart">
+                    <svg viewBox="0 0 100 30" class="ecg-line">
+                        <path d="M0 15 L25 15 L32 5 L40 25 L48 0 L55 22 L62 15 L100 15" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
             
             <nav class="sidebar-nav">
